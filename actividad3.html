@@ -1,17 +1,163 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-  <!-- Formulario realizar cotizacion --> 
-  <!-- Compra una PC / portatil -->
-  <!-- Existan campos obligatorios / no obligatorios -->
-  <!-- Generar un cuadro de dialogo con la confirmacion -->
-  <!-- Aplicar estilos CSS -->
+<!doctype html>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cotización de equipo</title>
 
-</body>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
+    />
+
+    <!-- Formulario realizar cotizacion -->
+    <!-- Compra una PC / portatil -->
+    <!-- Existan campos obligatorios / no obligatorios -->
+    <!-- Generar un cuadro de dialogo con la confirmacion -->
+    <!-- Aplicar estilos CSS -->
+
+    <style>
+      body {
+        background-color: #f5f6f8;
+      }
+
+      .box {
+        border-radius: 12px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="section">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <form action="" autocomplete="off" class="box" id="formulario">
+              <h1 class="title is-4">Cotización de equipo</h1>
+              <p class="mb-4">
+                Completa tus datos para solicitar una cotización.
+              </p>
+
+              <div class="field">
+                <label class="label" for="nombres">Nombres (obligatorio)</label>
+                <input
+                  type="text"
+                  class="input"
+                  id="nombres"
+                  minlength="2"
+                  required
+                />
+              </div>
+
+              <div class="field">
+                <label class="label" for="apellidos"
+                  >Apellidos (obligatorio)</label
+                >
+                <input
+                  type="text"
+                  class="input"
+                  id="apellidos"
+                  minlength="2"
+                  required
+                />
+              </div>
+
+              <div class="field">
+                <label class="label" for="email"
+                  >Correo electrónico (obligatorio)</label
+                >
+                <input type="email" class="input" id="email" required />
+              </div>
+
+              <div class="field">
+                <label class="label" for="equipo"
+                  >Equipo que deseas cotizar (obligatorio)</label
+                >
+                <div class="select is-fullwidth">
+                  <select id="equipo" required>
+                    <option value="">Seleccione un equipo</option>
+                    <option value="PC de escritorio">PC de escritorio</option>
+                    <option value="Portátil">Portátil</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="marca"
+                  >Marca preferida (opcional)</label
+                >
+
+                <div class="select is-fullwidth">
+                  <select id="marca">
+                    <option value="">Seleccione una marca</option>
+                    <option value="HP">HP</option>
+                    <option value="Lenovo">Lenovo</option>
+                    <option value="Dell">Dell</option>
+                    <option value="ASUS">ASUS</option>
+                    <option value="Acer">Acer</option>
+                    <option value="Apple">Apple</option>
+                    <option value="Otra">Otra</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="presupuesto"
+                  >Presupuesto aproximado (opcional)</label
+                >
+                <input
+                  type="number"
+                  class="input"
+                  id="presupuesto"
+                  min="0"
+                  placeholder="Ejemplo: 2500"
+                />
+              </div>
+
+              <div class="field">
+                <label class="label" for="pago"
+                  >Forma de pago preferida (opcional)</label
+                >
+
+                <div class="select is-fullwidth">
+                  <select id="pago">
+                    <option value="">Seleccione una forma de pago</option>
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Tarjeta de crédito">
+                      Tarjeta de crédito
+                    </option>
+                    <option value="Tarjeta de débito">Tarjeta de débito</option>
+                    <option value="Transferencia bancaria">
+                      Transferencia bancaria
+                    </option>
+                    <option value="Cuotas">Pago en cuotas</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field is-grouped">
+                <button class="button is-link" type="submit">
+                  Solicitar cotización
+                </button>
+                <button class="button" type="reset">Reiniciar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const formulario = document.getElementById("formulario");
+
+      formulario.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        if (confirm("¿Está seguro de enviar la solicitud de cotización?")) {
+          alert("Solicitud de cotización confirmada");
+        }
+      });
+    </script>
+  </body>
 </html>

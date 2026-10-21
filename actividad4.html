@@ -1,31 +1,183 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <!-- Construir un CUESTIONARIO (5 interrogantes) -->
-  <!-- Preguntas -->
-  <!-- 3 alternativas -->
-  <!-- Utilizar botones de desplazamiento para la navegación -->
-  <!-- Los datos que se irán mostrando deben estar en un OBJETO -->
+<!doctype html>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cuestionario</title>
 
-  <script>
-  const cuestionario = {
-    titulo: "Evaluación programación",
-    instructor: "Jhon Francia Minaya",
-    nivel: "fácil",
-    contenido: [
-      { pregunta1: "¿Qué es una BD?", alternativas: ["A) Bloque de Datos", "B) Base de Datos", "C) Banco Digital"] },
-      { pregunta2: "¿Qué es un LP?", alternativas: ["A) Línea de Proceso", "B) Lenguaje de Programación", "C) Lector de Páginas"] },
-      { pregunta3: "¿Qué es un Sistema Operativo?", alternativas: ["A) Una aplicación de diseño", "B) Un software base", "C) Un disco duro"] },
-      { pregunta4: "¿Qué significa HTML?", alternativas: ["A) HyperText Markup Language", "B) Hybrid Text Media Language", "C) High Text Machine Language"] },
-      { pregunta5: "¿Qué es JavaScript?", alternativas: ["A) Un servidor web", "B) Un lenguaje de programación", "C) Un estilo CSS"] }
-    ]
-  }
-</script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
+    />
 
-</body>
+    <!-- Construir un CUESTIONARIO (5 interrogantes) -->
+    <!-- Preguntas -->
+    <!-- 3 alternativas -->
+    <!-- Utilizar botones de desplazamiento para la navegación -->
+    <!-- Los datos que se irán mostrando deben estar en un OBJETO -->
+
+    <style>
+      .respuesta {
+        justify-content: flex-start;
+        text-align: left;
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="section">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <form class="box" id="formulario">
+              <h1 class="title is-4">Cuestionario de programación</h1>
+
+              <div class="field">
+                <label class="label" id="numeroPregunta"></label>
+                <h2 class="subtitle is-5" id="pregunta"></h2>
+              </div>
+
+              <div class="field">
+                <button
+                  class="button is-fullwidth is-light mb-2 respuesta"
+                  type="button"
+                  id="opcionA"
+                ></button>
+
+                <button
+                  class="button is-fullwidth is-light mb-2 respuesta"
+                  type="button"
+                  id="opcionB"
+                ></button>
+
+                <button
+                  class="button is-fullwidth is-light respuesta"
+                  type="button"
+                  id="opcionC"
+                ></button>
+              </div>
+
+              <div class="buttons is-justify-content-space-between mt-5">
+                <button class="button" type="button" id="anterior">
+                  Anterior
+                </button>
+
+                <button class="button is-link" type="button" id="siguiente">
+                  Siguiente
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const cuestionario = {
+        preguntas: [
+          "1. ¿Qué significa HTML?",
+          "2. ¿Qué lenguaje da estilos a una página web?",
+          "3. ¿Con qué palabra se declara una constante en JavaScript?",
+          "4. ¿Qué método agrega un elemento al final de un arreglo?",
+          "5. ¿Qué evento ocurre al hacer clic en un botón?",
+        ],
+
+        a: [
+          "A) HyperText Markup Language",
+          "A) CSS",
+          "A) var",
+          "A) pop()",
+          "A) click",
+        ],
+
+        b: [
+          "B) High Transfer Machine Language",
+          "B) SQL",
+          "B) let",
+          "B) shift()",
+          "B) focus",
+        ],
+
+        c: [
+          "C) Home Tool Markup Language",
+          "C) PHP",
+          "C) const",
+          "C) push()",
+          "C) keyup",
+        ],
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const numeroPregunta = document.getElementById("numeroPregunta");
+        const pregunta = document.getElementById("pregunta");
+        const opcionA = document.getElementById("opcionA");
+        const opcionB = document.getElementById("opcionB");
+        const opcionC = document.getElementById("opcionC");
+        const anterior = document.getElementById("anterior");
+        const siguiente = document.getElementById("siguiente");
+
+        let i = 0;
+        const seleccionadas = [];
+
+        function mostrar() {
+          numeroPregunta.innerHTML =
+            "Pregunta " + (i + 1) + " de " + cuestionario.preguntas.length;
+
+          pregunta.innerHTML = cuestionario.preguntas[i];
+          opcionA.innerHTML = cuestionario.a[i];
+          opcionB.innerHTML = cuestionario.b[i];
+          opcionC.innerHTML = cuestionario.c[i];
+
+          opcionA.className = "button is-fullwidth is-light mb-2 respuesta";
+          opcionB.className = "button is-fullwidth is-light mb-2 respuesta";
+          opcionC.className = "button is-fullwidth is-light respuesta";
+
+          if (seleccionadas[i] === 0) {
+            opcionA.className = "button is-fullwidth is-link mb-2 respuesta";
+          }
+
+          if (seleccionadas[i] === 1) {
+            opcionB.className = "button is-fullwidth is-link mb-2 respuesta";
+          }
+
+          if (seleccionadas[i] === 2) {
+            opcionC.className = "button is-fullwidth is-link respuesta";
+          }
+
+          anterior.disabled = i === 0;
+        }
+
+        opcionA.addEventListener("click", function () {
+          seleccionadas[i] = 0;
+          mostrar();
+        });
+
+        opcionB.addEventListener("click", function () {
+          seleccionadas[i] = 1;
+          mostrar();
+        });
+
+        opcionC.addEventListener("click", function () {
+          seleccionadas[i] = 2;
+          mostrar();
+        });
+
+        anterior.addEventListener("click", function () {
+          if (i > 0) {
+            i = i - 1;
+            mostrar();
+          }
+        });
+
+        siguiente.addEventListener("click", function () {
+          if (i < cuestionario.preguntas.length - 1) {
+            i = i + 1;
+            mostrar();
+          }
+        });
+
+        mostrar();
+      });
+    </script>
+  </body>
 </html>

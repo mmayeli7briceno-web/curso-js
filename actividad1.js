@@ -19,9 +19,18 @@ for (let i = longitud -1; i >= 0; i--){
 // jhon@gmail.com [correcto]
 // luis@gmail@.com [incorrecto]
 // mariagmail.com [incorrecto]
-const correo = "jhon@gmail.com"
-const total = 0
+const correo = "mayel@i@gmail.com";
+let total = 0;
 
 for (let i = 0; i < correo.length; i++){
-  
+  if (correo[i] === "@"){
+   total++;
+  }
 }
+
+if (total  === 1){
+   console.log("Correo correcto");
+}else{
+   console.log("Correo incorreto");
+}
+
