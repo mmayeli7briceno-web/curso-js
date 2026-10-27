@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <form action="" id="formBuscador">
+    <div>
+      <input type="text" id="idpersonaje" placeholder="Ejem. 1">
+      <button type="submit">Buscar</button>
+    </div>
+
+    <div>
+      <label for="nombre">Nombre personaje:</label>
+      <input type="text" id="nombre">
+    </div>
+
+    <div>
+      <label for="genero">Género:</label>
+      <input type="text" id="genero">
+    </div>
+
+    <div>
+      <label for="estatura">Estatura:</label>
+      <input type="text" id="estatura">
+    </div>
+  </form>
+
+  <script>
+
+    const formulario = document.getElementById('formBuscador')
+    const id = document.getElementById('idpersonaje')
+    const nombre = document.getElementById('nombre')
+    const genero = document.getElementById('genero')
+    const estatura = document.getElementById('estatura')
+
+    //submit event (envio)
+    formulario.addEventListener("submit", (event) => {
+      event.preventDefault()  //Detener el envio
+
+      obtenerPersonaje(id.value)
+    })
+
+    async function obtenerPersonaje(id) {
+      const API_URL = `https://swapi.dev/api/people/${id}`
+      
+      try{
+        const respuesta = await fetch(API_URL)
+      if (!respuesta.ok){
+        //Sino encontrastes el dato
+        if (respuesta.status = 404){
+          nombre.value = ''
+          genero.value = ''
+          estatura.value = ''
+          alert('No existe este personaje')
+        }
+        throw new Error(`Error de comunicación`)
+      }
+
+      const datos = await respuesta.json();
+        
+      //Enviando resultados al formulario
+      nombre.value = datos.name
+      genero.value = datos.gender
+      estatura.value = datos.height
+      } catch (e) {
+        console.error(e)
+    }
+  }
+  </script>
+</body>
+</html>
